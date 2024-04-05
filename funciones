@@ -27,3 +27,20 @@ def window(table,split_window_column, condition=True, window=10):
       current_index = tabla.index.get_loc(index)
       tabla_2 = pd.concat([tabla_1, tabla.iloc[current_index:current_index+window]])
   return tabla_2
+
+
+def remove_na(table, axis=0):
+  """
+  Removes na, default is rows. Shows nro of rows delected.
+  """
+  len_before = len(table)
+  print(f"Before removing NA. N.Rows = {len_before}\n ")
+  print(table.isna().sum())
+  table = table.dropna(axis=axis)
+  len_after =len(table)
+  print("")
+  print(f"After removing NA. N.Rows = {len_after}\n ")
+  print(table.isna().sum())
+  print("")
+  print(f"Rows delected = {len_before-len_after}")
+  return table
