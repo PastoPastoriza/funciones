@@ -21,12 +21,14 @@ def window(table,split_window_column, condition=True, window=10):
   """
   Given a table and a reference column, it will creat a new dataframe with a window (default=10) rows starting the True condition of the reference column 
   """
-  table_1 = pd.DataFrame(columns=tabla.columns)
-  for index, row in tabla.iterrows():
+  print(f"Lenght of original Dataframe = {len(table)}\n")
+  new_table = pd.DataFrame(columns=table.columns)
+  for index, row in table.iterrows():
     if row[split_window_column] == condition:
-      current_index = tabla.index.get_loc(index)
-      tabla_2 = pd.concat([tabla_1, tabla.iloc[current_index:current_index+window]])
-  return tabla_2
+      current_index = table.index.get_loc(index)
+      new_table = pd.concat([new_table, table.iloc[current_index:current_index+window]])
+  print(f"Lengh of New Dataframe = {len(new_table)}")
+  return new_table
 
 
 def remove_na(table, axis=0):
