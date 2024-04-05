@@ -15,6 +15,29 @@ def turn_float32_onehot(dataframe):
   
   return dataframe
 
+-----------------------------------------------------------------------
+-----------------------------------------------------------------------
+
+
+def train_test(X,y,split=0.8):
+  """
+  Splits train-test with index
+  """
+  lenght = len(X)
+
+  X_train = X[:int(split*lenght)] 
+  X_test =y[:int(split*lenght)]
+  y_train = X[int(split*lenght):]
+  y_test = y[int(split*lenght):]
+  print(f"Shape of X_train = {X_train.shape}")
+  print(f"Shape of X_test = {X_test.shape}")
+  print(f"Shape of y_train = {y_train.shape}")
+  print(f"Shape of y_test = {y_test.shape}")
+
+  return X_train, X_test, y_train, y_test
+
+-----------------------------------------------------------------------
+-----------------------------------------------------------------------
 
 
 def window(table,split_window_column, condition=True, window=10):
@@ -29,6 +52,11 @@ def window(table,split_window_column, condition=True, window=10):
       new_table = pd.concat([new_table, table.iloc[current_index:current_index+window]])
   print(f"Lengh of New Dataframe = {len(new_table)}")
   return new_table
+
+
+
+-----------------------------------------------------------------------
+-----------------------------------------------------------------------
 
 
 def remove_na(table, axis=0):
