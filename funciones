@@ -17,12 +17,13 @@ def turn_float32_onehot(dataframe):
 
 
 
-def df_window(table,split_window_column, condition=True, window=10):
+def window(table,split_window_column, condition=True, window=10):
   """
   Given a table and a reference column, it will creat a new dataframe with a window (default=10) rows starting the True condition of the reference column 
   """
-  for index, row in table.iterrows():
+  table_1 = pd.DataFrame(columns=tabla.columns)
+  for index, row in tabla.iterrows():
     if row[split_window_column] == condition:
-      current_index = table.index.get_loc(index)
-      table_1 = pd.concat([table_1, table.iloc[current_index:current_index+window]])
-  return table_1
+      current_index = tabla.index.get_loc(index)
+      tabla_2 = pd.concat([tabla_1, tabla.iloc[current_index:current_index+window]])
+  return tabla_2
