@@ -14,3 +14,15 @@ def turn_float32_onehot(dataframe):
       continue
   
   return dataframe
+
+
+
+def df_window(table,split_window_column, condition=True, window=10):
+  """
+  Given a table and a reference column, it will creat a new dataframe with a window (default=10) rows starting the True condition of the reference column 
+  """
+  for index, row in table.iterrows():
+    if row[split_window_column] == condition:
+      current_index = table.index.get_loc(index)
+      table_1 = pd.concat([table_1, table.iloc[current_index:current_index+window]])
+  return table_1
