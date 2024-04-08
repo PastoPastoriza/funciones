@@ -74,3 +74,16 @@ def remove_na(table, axis=0):
   print("")
   print(f"Rows delected = {len_before-len_after}")
   return table
+
+
+def delete_columns(tabla,index_start=False,index_stop=False,columns=False):
+  """
+  Given a table, it eliminates de columns in the given indeces and the columns named
+  """
+  if index_start is not False and index_stop is not False:
+    delected_columns = tabla.columns[index_start:index_stop+1]
+    tabla = tabla.drop(columns=delected_columns)
+  if columns is not False:
+    for column in columns:
+      tabla = tabla.drop(columns=column)
+  return tabla
