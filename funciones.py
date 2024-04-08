@@ -1,3 +1,9 @@
+import pandas as pd
+import numpy as np
+
+-----------------------------------------------------------------------
+-----------------------------------------------------------------------
+
 def turn_float32_onehot(dataframe):
   """
   Turns all dtypes of a DF into float32 or one hot
