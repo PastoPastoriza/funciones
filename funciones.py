@@ -4,22 +4,22 @@ import numpy as np
 -----------------------------------------------------------------------
 -----------------------------------------------------------------------
 
-def turn_float32_onehot(dataframe):
-  """
-  Turns all dtypes of a DF into float32 or one hot
-  """
-  for column in dataframe.columns:
-    if dataframe[column].dtype == "float64" or dataframe[column].dtype == "int64":
-      dataframe[column] = dataframe[column].astype("float32")
-    elif dataframe[column].dtype == "bool" or dataframe[column].dtype == "object":
-      dummies = pd.get_dummies(data=tabla[column],dtype="float32")
-      #dummies_float = dummies.astype("float32")
-      dataframe = pd.concat([dataframe, dummies],axis=1) 
-      dataframe = dataframe.drop(columns=column)
-    else:
-      continue
+# def turn_float32_onehot(dataframe):
+#   """
+#   Turns all dtypes of a DF into float32 or one hot
+#   """
+#   for column in dataframe.columns:
+#     if dataframe[column].dtype == "float64" or dataframe[column].dtype == "int64":
+#       dataframe[column] = dataframe[column].astype("float32")
+#     elif dataframe[column].dtype == "bool" or dataframe[column].dtype == "object":
+#       dummies = pd.get_dummies(data=tabla[column],dtype="float32")
+#       #dummies_float = dummies.astype("float32")
+#       dataframe = pd.concat([dataframe, dummies],axis=1) 
+#       dataframe = dataframe.drop(columns=column)
+#     else:
+#       continue
   
-  return dataframe
+#   return dataframe
 
 -----------------------------------------------------------------------
 -----------------------------------------------------------------------
