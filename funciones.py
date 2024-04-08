@@ -108,9 +108,15 @@ def turn_onehot(tabla, columns, dtype="float32"):
       tabla = tabla.drop(columns=column)
   return tabla
 
+import os
+import datetime
 
-def checkpoint(model_name, path="model_experiment"):
-  return tf.keras.callbacks.ModelCheckpoint(filepath = os.path.join(path,model_name),
-                                  monitor='val_loss',
-                                  verbose=1,
-                                  save_best_only=True)
+def checkpoint(model_name, path="/content/drive/MyDrive/Fendi Mio/Modelos/"):
+  date =datetime.datetime.now().strftime("%Y-%m-%d")
+  filepath = os.path.join(path,model_name,date)
+  return tf.keras.callbacks.ModelCheckpoint(filepath=filepath,
+                                            monitor="val_loss",
+                                            verbose=1,
+                                            save_best_only=True)
+
+
