@@ -120,3 +120,13 @@ def checkpoint(model_name, path="/content/drive/MyDrive/Fendi Mio/Modelos/"):
                                             save_best_only=True)
 
 
+def create_sequences(data, targets, sequence_length, sequence_stride):
+  """
+  Creates both an array of train and test sequences
+  """
+    sequences = []
+    labels = []
+    for i in range(0, len(data) - sequence_length + 1, sequence_stride):
+        sequences.append(data[i:i+sequence_length])
+        labels.append(targets[i])  # Assuming the target corresponds to the first element of each sequence
+    return np.array(sequences), np.array(labels)
