@@ -13,7 +13,6 @@ import numpy as np
 #       dataframe[column] = dataframe[column].astype("float32")
 #     elif dataframe[column].dtype == "bool" or dataframe[column].dtype == "object":
 #       dummies = pd.get_dummies(data=tabla[column],dtype="float32")
-#       #dummies_float = dummies.astype("float32")
 #       dataframe = pd.concat([dataframe, dummies],axis=1) 
 #       dataframe = dataframe.drop(columns=column)
 #     else:
