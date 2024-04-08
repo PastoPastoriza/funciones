@@ -2,8 +2,7 @@ import tensorflow as tf
 import pandas as pd
 import numpy as np
 
-# -----------------------------------------------------------------------
-# -----------------------------------------------------------------------
+
 
 # def turn_float32_onehot(dataframe):
 #   """
@@ -22,8 +21,6 @@ import numpy as np
   
 #   return dataframe
 
-# -----------------------------------------------------------------------
-# -----------------------------------------------------------------------
 
 
 def train_test(X,y,window=10,split=0.8):
@@ -45,8 +42,6 @@ def train_test(X,y,window=10,split=0.8):
   print(f"Shape of y_test = {y_test.shape}")
   return X_train, X_test, y_train, y_test
 
-# -----------------------------------------------------------------------
-# -----------------------------------------------------------------------
 
 
 def window(table,split_window_column, condition=True, window=10):
@@ -63,9 +58,6 @@ def window(table,split_window_column, condition=True, window=10):
   return new_table
 
 
-
-# -----------------------------------------------------------------------
-# -----------------------------------------------------------------------
 
 
 def remove_na(table, axis=0):
