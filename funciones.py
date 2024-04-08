@@ -78,7 +78,7 @@ def remove_na(table, axis=0):
 
 def delete_columns(tabla,index_start=False,index_stop=False,columns=False):
   """
-  Given a table, it eliminates de columns in the given indeces and the column (or list of columns) named
+  Given a table, it eliminates de columns in the given indeces and the columns (as a list) named
   """
   if index_start is not False and index_stop is not False:
     delected_columns = tabla.columns[index_start:index_stop+1]
@@ -87,3 +87,30 @@ def delete_columns(tabla,index_start=False,index_stop=False,columns=False):
     for column in columns:
       tabla = tabla.drop(columns=column)
   return tabla
+
+
+def turn_dtype(tabla, columns, dtype="float32"):
+  """
+  Returns a table with the list of columns in dtype
+  """
+  for column in columns:
+    tabla[column] = tabla[column].astype(dtype)
+  return tabla
+
+
+def turn_onehot(tabla, columns, dtype="float32"):
+  """
+  Turns a list of objets/bool or categories columns into one_hot
+  """
+  for column in columns:
+      dummies = pd.get_dummies(data=tabla[column],dtype=dtype)
+      tabla = pd.concat([tabla, dummies],axis=1)
+      tabla = tabla.drop(columns=column)
+  return tabla
+
+
+def checkpoint(model_name, path="model_experiment"):
+  return tf.keras.callbacks.ModelCheckpoint(filepath = os.path.join(path,model_name),
+                                  monitor='val_loss',
+                                  verbose=1,
+                                  save_best_only=True)
