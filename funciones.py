@@ -130,3 +130,31 @@ def checkpoint(model_name, path="/content/drive/MyDrive/Fendi Mio/Modelos/"):
 #         sequences.append(data[i:i+sequence_length])
 #         labels.append(targets[i])  # Assuming the target corresponds to the first element of each sequence
 #     return np.array(sequences), np.array(labels)
+
+from sklearn.metrics import classification_report, confusion_matrix,ConfusionMatrixDisplay
+
+def pred_eval_cm(model,test_data):
+  """
+  Predicts, reshapes, evaluates and makes a ConfMatrix
+
+  **Return: pred, y_true, model_eval
+  """
+  pred_prob = model.predict(test_data)
+  pred = np.round(pred_prob)
+  pred = np.squeeze(pred)
+
+  y_true_list = []
+
+  for _, targets in test_data:
+    y_true_list.append(targets)
+  
+  y_true = np.concatenate(y_true_list)
+
+  model_eval = classification_report(y_true,pred)
+  print(model_eval)
+
+  cm=confusion_matrix(y_true, pred)
+  display = ConfusionMatrixDisplay(cm)
+  display.plot()
+
+  return pred, y_true, model_eval
