@@ -111,11 +111,11 @@ def turn_onehot(tabla, columns, dtype="float32"):
 import os
 import datetime
 
-def checkpoint(model_name, path="/content/drive/MyDrive/Fendi Mio/Modelos/"):
+def checkpoint(model_name, path="/content/drive/MyDrive/Fendi Mio/Modelos/",monitor="val_loss"):
   date =datetime.datetime.now().strftime("%Y-%m-%d")
-  filepath = os.path.join(path,model_name,date)
+  filepath = os.path.join(path,date,model_name)
   return tf.keras.callbacks.ModelCheckpoint(filepath=filepath,
-                                            monitor="val_loss",
+                                            monitor=monitor,
                                             verbose=1,
                                             save_best_only=True)
 
