@@ -43,7 +43,7 @@ def train_test(X,y,window=10,split=0.8):
 
 
 
-def window(table,split_window_column, condition=True, window=10):
+def window_after(table,split_window_column, condition=True, window=10):
   """
   Given a table and a reference column, it will creat a new dataframe with a window (default=10) rows starting the True condition of the reference column 
   """
@@ -56,6 +56,18 @@ def window(table,split_window_column, condition=True, window=10):
   print(f"Lengh of New Dataframe = {len(new_table)}")
   return new_table
 
+def window_before(table,split_window_column, condition=True, window=10):
+  """
+  Given a table and a reference column, it will creat a new dataframe with a window (default=10) rows starting the True condition of the reference column
+  """
+  print(f"Lenght of original Dataframe = {len(table)}\n")
+  new_table = pd.DataFrame(columns=table.columns)
+  for index, row in table.iterrows():
+    if row[split_window_column] == condition:
+      current_index = table.index.get_loc(index)
+      new_table = pd.concat([new_table, table.iloc[current_index-window+1:current_index+1]])
+  print(f"Lengh of New Dataframe = {len(new_table)}")
+  return new_table
 
 
 
