@@ -158,3 +158,17 @@ def pred_eval_cm(model,test_data):
   display.plot()
 
   return pred, y_true, model_eval
+
+
+from sklearn.preprocessing import StandardScaler
+
+def normalize(df,excluded,type=["float64"]):
+  """
+  Normaliza las columnas en df siempre y cuando sean "type" y no esten en la lista de "excluded"
+  """
+  for column in df.columns:
+    if df[column].dtype in type and column not in excluded:
+      scaler = StandardScaler()
+      column_data = df[column].values.reshape(-1,1)
+      df[column] = scaler.fit_transform(column_data).flatten()
+  return df
