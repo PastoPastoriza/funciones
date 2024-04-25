@@ -70,6 +70,65 @@ def window_before(table,split_window_column, condition=True, window=10):
   return new_table
 
 
+def window_before_array(table,split_window_column = "long_condition", condition=True, window=10, target = "target", split=0.85):
+  """
+  Agarra una tabla y: crea ventana, arma train-test, los cambia a arrays y reshape de tal forma que quede 1 orden con sus "window" anteriores.
+  """
+  print("Creating windows df:")
+  df_f = fun.window_before(table, split_window_column, condition=True, window = window)
+  print()
+  print(df_f.info())
+  X = df_f.drop(columns=target)
+  y = df_f[target]
+  print()
+  print("Creating train-test data:")
+  X_train, X_test, y_train, y_test = fun.train_test(X, y,window = window, split=split)
+  print()
+  print()
+  y_train = y_train.astype(int)
+  y_test = y_test.astype(int)
+
+  X_train_a = X_train.to_numpy()
+  y_train_a = y_train.to_numpy()
+  X_test_a = X_test.to_numpy()
+  y_test_a = y_test.to_numpy()
+  print("Creating arrays from df:")
+  print()
+  print(f"X_train_a.shape : {X_train_a.shape}")
+  print(f"y_train_a.shape : {y_train_a.shape}")
+  print(f"X_test_a.shape : {X_test_a.shape}")
+  print(f"y_test_a.shape : {X_test_a.shape}")
+  print()
+  print()
+  X_train_a_len = len(X_train_a)/window
+  X_test_a_len = len(X_test_a)/window
+  col_len = X_train_a.shape[1] * window
+  X_train_a_len = int(X_train_a_len)
+  X_test_a_len = int(X_test_a_len)
+  
+  print(f"X_train_a_len: {X_train_a_len}")
+  print(f"col_len: {col_len}")
+  print(f"X_test_a_len : {X_test_a_len}")
+  print()
+  print()
+  print(f"Creating window {window} arrays:")
+  
+  X_train_a = X_train_a.reshape(X_train_a_len,col_len)
+  y_train_a = y_train_a[window - 1::window]
+  X_test_a = X_test_a.reshape(X_test_a_len,col_len)
+  y_test_a = y_test_a[window - 1::window]
+  
+  print(f"X_train_a.shape : {X_train_a.shape}")
+  print(f"y_train_a.shape : {y_train_a.shape}")
+  print(f"X_test_a.shape : {X_test_a.shape}")
+  print(f"y_test_a.shape : {X_test_a.shape}")
+  print()
+  print(f"bincount(y_train_a) : {np.bincount(y_train_a)}")
+  print(f"bincount(y_test_a) : {np.bincount(y_test_a)}")
+
+  return X_train_a, X_test_a, y_train_a, y_test_a
+
+
 
 def remove_na(table, axis=0):
   """
