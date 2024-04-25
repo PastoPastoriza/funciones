@@ -74,6 +74,8 @@ def window_before_array(table,split_window_column = "long_condition", condition=
   """
   Agarra una tabla y: crea ventana, arma train-test, los cambia a arrays y reshape de tal forma que quede 1 orden con sus "window" anteriores.
   """
+  data ={}
+
   print("Creating windows df:")
   df_f = fun.window_before(table, split_window_column, condition=True, window = window)
   print()
@@ -126,8 +128,27 @@ def window_before_array(table,split_window_column = "long_condition", condition=
   print(f"bincount(y_train_a) : {np.bincount(y_train_a)}")
   print(f"bincount(y_test_a) : {np.bincount(y_test_a)}")
 
-  return X_train_a, X_test_a, y_train_a, y_test_a
+  data['X_train'] = X_train
+  data['y_train'] = y_train
+  data['X_train_a'] = X_train_a
+  data['y_train_a'] = y_train_a
+  data['X_test'] = X_test
+  data['y_test'] = y_test
+  data['X_test_a'] = X_test_a
+  data['y_test_a'] = y_test_a
+  print()
+  print("helpful print:")
+  print()
+  print("X_train = arrays['X_train']")
+  print("y_train = arrays['y_train']")
+  print("X_test = arrays['X_test']")
+  print("y_test = arrays['y_test']")
+  print("X_train_a = arrays['X_train_a']")
+  print("y_train_a = arrays['y_train_a']")
+  print("X_test_a = arrays['X_test_a']")
+  print("y_test_a = arrays['y_test_a']")
 
+  return data
 
 
 def remove_na(table, axis=0):
