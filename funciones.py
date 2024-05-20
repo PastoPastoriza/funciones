@@ -204,7 +204,7 @@ from sklearn.metrics import classification_report, confusion_matrix,ConfusionMat
 
 def precision_dict(y_true,pred):
   """
-  prints a classification report and saves
+  prints a classification report and returns a dict of presicion and accuracy.
   """
   model_dict = classification_report(y_true,pred,output_dict=True)
 
