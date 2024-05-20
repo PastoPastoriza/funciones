@@ -202,14 +202,22 @@ def model_predict(model,test_data):
 from sklearn.metrics import classification_report, confusion_matrix,ConfusionMatrixDisplay
 
 
-def precision_dict(y_true,pred):
+def precision_dict(y_true,pred,ML=True):
   """
   prints a classification report and returns a dict of presicion and accuracy.
+  Use ML=True for ML and ML=False for Neural Networks
   """
+  if ML:
+    cero="0"
+    one="1"
+  else:
+    cero="0.0"
+    one="1.0"
+  
   model_dict = classification_report(y_true,pred,output_dict=True)
 
-  precision_0 = model_dict["0.0"]["precision"]
-  precision_1 = model_dict["1.0"]["precision"]
+  precision_0 = model_dict[cero]["precision"]
+  precision_1 = model_dict[one]["precision"]
   macro_avg_precision = model_dict["macro avg"]["precision"]
   accuracy = model_dict["accuracy"]
 
