@@ -4,24 +4,6 @@ import numpy as np
 
 
 
-# def turn_float32_onehot(dataframe):
-#   """
-#   Turns all dtypes of a DF into float32 or one hot
-#   """
-#   for column in dataframe.columns:
-#     if dataframe[column].dtype == "float64" or dataframe[column].dtype == "int64":
-#       dataframe[column] = dataframe[column].astype("float32")
-#     elif dataframe[column].dtype == "bool" or dataframe[column].dtype == "object":
-#       dummies = pd.get_dummies(data=tabla[column],dtype="float32")
-#       dataframe = pd.concat([dataframe, dummies],axis=1) 
-#       dataframe = dataframe.drop(columns=column)
-#     else:
-#       continue
-  
-#   return dataframe
-
-
-
 def train_test(X,y,window=10,split=0.8):
   """
   Splits train-test with index for a window (default=10) data
@@ -198,3 +180,55 @@ def normalize(df,del_columns):
       column_data = df[column].values.reshape(-1,1)
       df[column] = scaler.fit_transform(column_data).flatten()
   return df
+
+def model_predict(model,test_data):
+  """
+  reshapes and predict for test_data tensor. Returns pred y_true
+  """
+  pred_prob = model.predict(test_data)
+  pred = np.round(pred_prob)
+  pred = np.squeeze(pred)
+
+  y_true_list = []
+
+  for _, targets in test_data:
+    y_true_list.append(targets)
+  
+  y_true = np.concatenate(y_true_list)
+
+  return pred,y_true
+
+
+from sklearn.metrics import classification_report, confusion_matrix,ConfusionMatrixDisplay
+
+
+def precision_dict(y_true,pred):
+  """
+  prints a classification report and saves
+  """
+  model_dict = classification_report(y_true,pred,output_dict=True)
+
+  precision_0 = model_dict["0.0"]["precision"]
+  precision_1 = model_dict["1.0"]["precision"]
+  macro_avg_precision = model_dict["macro avg"]["precision"]
+  accuracy = model_dict["accuracy"]
+
+  model_precision = {"precision_0": precision_0,
+                          "precision_1": precision_1,
+                          "macro_avg_precision": macro_avg_precision,
+                          "accuracy": accuracy}
+
+  model_eval = classification_report(y_true,pred)
+  print(model_eval)
+
+  cm=confusion_matrix(y_true, pred)
+  display = ConfusionMatrixDisplay(cm)
+  display.plot()
+
+  return model_precision
+
+# all_model_results = pd.DataFrame({"model_1": model_dict1,
+                                  "model_2": model_dict2})
+
+# all_model_results = all_model_results.transpose()
+# all_model_results
