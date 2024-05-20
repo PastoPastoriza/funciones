@@ -240,3 +240,4 @@ def precision_dict(y_true,pred,ML=True):
 
 # all_model_results = all_model_results.transpose()
 # all_model_results
+# all_model_results.plot(kind="bar", figsize=(10, 7)).legend(bbox_to_anchor=(1.0, 1.0));
