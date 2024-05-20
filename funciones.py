@@ -236,7 +236,7 @@ def precision_dict(y_true,pred,ML=True):
   return model_precision
 
 # all_model_results = pd.DataFrame({"model_1": model_dict1,
-                                  "model_2": model_dict2})
+                                  # "model_2": model_dict2})
 
 # all_model_results = all_model_results.transpose()
 # all_model_results
