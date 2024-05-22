@@ -258,11 +258,13 @@ def true_dict(y_true,pred,ML=True):
 
   precision_0 = model_dict[cero]["precision"]
   precision_1 = model_dict[one]["precision"]
+  macro_avg_precision = model_dict["macro avg"]["precision"]
   recall_1 = model_dict[one]["recall"]
   accuracy = model_dict["accuracy"]
 
   model_precision = {"precision_0": precision_0,
                           "precision_1": precision_1,
+                          "macro_avg_precision": macro_avg_precision,
                           "recall_1": recall_1,
                           "accuracy": accuracy}
 
