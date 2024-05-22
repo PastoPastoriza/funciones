@@ -202,46 +202,6 @@ def model_predict(model,test_data):
 from sklearn.metrics import classification_report, confusion_matrix,ConfusionMatrixDisplay
 
 
-def precision_dict(y_true,pred,ML=True):
-  """
-  prints a classification report and returns a dict of presicion and accuracy.
-  Use ML=True for ML and ML=False for Neural Networks
-  """
-  if ML:
-    cero="0"
-    one="1"
-  else:
-    cero="0.0"
-    one="1.0"
-  
-  model_dict = classification_report(y_true,pred,output_dict=True)
-
-  precision_0 = model_dict[cero]["precision"]
-  precision_1 = model_dict[one]["precision"]
-  macro_avg_precision = model_dict["macro avg"]["precision"]
-  accuracy = model_dict["accuracy"]
-
-  model_precision = {"precision_0": precision_0,
-                          "precision_1": precision_1,
-                          "macro_avg_precision": macro_avg_precision,
-                          "accuracy": accuracy}
-
-  model_eval = classification_report(y_true,pred)
-  print(model_eval)
-
-  cm=confusion_matrix(y_true, pred)
-  display = ConfusionMatrixDisplay(cm)
-  display.plot()
-
-  return model_precision
-
-# all_model_results = pd.DataFrame({"model_1": model_dict1,
-                                  # "model_2": model_dict2})
-
-# all_model_results = all_model_results.transpose()
-# all_model_results
-# all_model_results.plot(kind="bar", figsize=(10, 7)).legend(bbox_to_anchor=(1.0, 1.0));
-
 def true_dict(y_true,pred,ML=True):
   """
   prints a classification report and returns a dict of presicion and accuracy.
@@ -276,3 +236,12 @@ def true_dict(y_true,pred,ML=True):
   display.plot()
 
   return model_precision
+
+
+# all_model_results = pd.DataFrame({"model_1": model_dict1,
+                                  # "model_2": model_dict2})
+
+# all_model_results = all_model_results.transpose()
+# all_model_results
+# all_model_results.plot(kind="bar", figsize=(10, 7)).legend(bbox_to_anchor=(1.0, 1.0));
+
