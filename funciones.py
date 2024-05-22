@@ -156,12 +156,12 @@ def pred_eval_cm(model,test_data):
 
 from sklearn.preprocessing import StandardScaler
 
-def exclude_normalize(df,excluded,type=["float64"]):
+def exclude_normalize(df,excluded):
   """
-  Normaliza las columnas en df siempre y cuando sean "type" y no esten en la lista de "excluded"
+  Normaliza las columnas en df siempre y cuando no esten en la lista de "excluded"
   """
   for column in df.columns:
-    if df[column].dtype in type and column not in excluded:
+    if column not in excluded:
       scaler = StandardScaler()
       column_data = df[column].values.reshape(-1,1)
       df[column] = scaler.fit_transform(column_data).flatten()
@@ -241,3 +241,36 @@ def precision_dict(y_true,pred,ML=True):
 # all_model_results = all_model_results.transpose()
 # all_model_results
 # all_model_results.plot(kind="bar", figsize=(10, 7)).legend(bbox_to_anchor=(1.0, 1.0));
+
+def true_dict(y_true,pred,ML=True):
+  """
+  prints a classification report and returns a dict of presicion and accuracy.
+  Use ML=True for ML and ML=False for Neural Networks
+  """
+  if ML:
+    cero="0"
+    one="1"
+  else:
+    cero="0.0"
+    one="1.0"
+  
+  model_dict = classification_report(y_true,pred,output_dict=True)
+
+  precision_0 = model_dict[cero]["precision"]
+  precision_1 = model_dict[one]["precision"]
+  recall_1 = model_dict[one]["recall"]
+  accuracy = model_dict["accuracy"]
+
+  model_precision = {"precision_0": precision_0,
+                          "precision_1": precision_1,
+                          "recall_1": recall_1,
+                          "accuracy": accuracy}
+
+  model_eval = classification_report(y_true,pred)
+  print(model_eval)
+
+  cm=confusion_matrix(y_true, pred)
+  display = ConfusionMatrixDisplay(cm)
+  display.plot()
+
+  return model_precision
