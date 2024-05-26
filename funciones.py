@@ -245,3 +245,25 @@ def true_dict(y_true,pred,ML=True):
 # all_model_results
 # all_model_results.plot(kind="bar", figsize=(10, 7)).legend(bbox_to_anchor=(1.0, 1.0));
 
+
+import joblib
+import os
+
+def load_and_scale(df, path="/content/drive/My Drive/Fendi/"):
+    """
+    Loads the scalers from the specified folder and transforms the corresponding columns in df.
+    """
+    # Load the scalers from the file
+    full_path = os.path.join(path,'scalers.pkl')
+    scalers = joblib.load(full_path)
+
+    transformed_df = df.copy()
+
+    # Apply the scalers to the corresponding columns
+    for column, scaler in scalers.items():
+        if column in transformed_df.columns:
+            column_data = transformed_df[column].values.reshape(-1, 1)
+            transformed_df[column] = scaler.transform(column_data).flatten()
+
+    return transformed_df
+
