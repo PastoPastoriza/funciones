@@ -270,7 +270,7 @@ def load_and_scale(df, path="/content/drive/My Drive/Fendi/"):
 from sklearn.preprocessing import StandardScaler
 import os
 
-def save_normalize(data,excluded,folder,path="/content/drive/MyDrive/Fendi Mio/EMA/Scalers/"):
+def save_normalize(data,excluded,folder,save=False,path="/content/drive/MyDrive/Fendi Mio/EMA/Scalers/"):
   """
   Normaliza las columnas en df siempre y cuando no esten en la lista de "excluded"
   """
@@ -283,8 +283,9 @@ def save_normalize(data,excluded,folder,path="/content/drive/MyDrive/Fendi Mio/E
       column_data = df[column].values.reshape(-1,1)
       df[column] = scaler.fit_transform(column_data).flatten()
       scalers[column] = scaler
-  
-  full_path = os.path.join(path, folder)
-  joblib.dump(scalers, os.path.join(full_path, 'scalers.pkl'))
+      
+  if save==True:
+    full_path = os.path.join(path, folder)
+    joblib.dump(scalers, os.path.join(full_path, 'scalers.pkl'))
 
   return df
